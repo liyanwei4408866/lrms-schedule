@@ -1,0 +1,47 @@
+spring: 
+  application:
+    name: lrms-schedule
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/lrms?useUnicode=true&characterEncoding=UTF-8 # jdbc:postgresql://192.168.160.103:5432/dev_li
+    username: root
+    password: 123456 #2011newTIIDA 
+  zipkin:
+    enabled: false
+    locator:
+      discovery:
+        enabled: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    table: lrms_schedule_schema_history
+
+#mybatis配置
+mybatis:
+#实体类所在包名
+  type-aliases-package: com.pl.schedule.entity
+#通用mapper配置
+mapper:
+#公用接口类路径
+  mappers: com.pl.schedule.common.IBaseDao
+#  identity: MYSQL
+    
+server: 
+  port: 9999
+
+logging:
+  path: logs
+  level: 
+    com.pl.schedule.mapper: debug
+    com.pl.schedule.service: debug
+    com.pl.schedule.protocol.udp.cmd: debug
+    
+protocol: 
+  udp: 
+    serverIP: 192.168.1.1 #10.1.20.169
+    serverPort: 60606
+    reportPort: 60601
+    reportStep: 0
+    subnetMask: 255.255.255.0
+    gateway: 192.168.1.1 #10.1.20.1

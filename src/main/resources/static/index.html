@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+</head>
+<body>
+    <input type="button" value="授权今天的数据" onclick="addAuth();"/>
+    <input type="button" value="下载刷卡日志" onclick="downloadLog();"/>
+    <hr/>
+	<input type="text" maxlength="8" placeholder="日期格式:yyyyMMdd" id="ID-date"/>
+    <input type="button" value="授权指定日期的数据" onclick="addAuthByDate();"/>
+    <hr/>
+    <script type="text/javascript">
+    function addAuth() {
+    	$.ajax({
+			type:"GET",
+			url:"addAuth",
+			success:function(data){
+				if (data.code=="1") {
+					alert("ok")
+				} else {
+					alert("error")
+				}
+			}
+		});
+    }
+    function addAuthByDate() {
+    	var dateStr = $("#ID-date").val();
+    	if (dateStr.length !=8) {
+    		alert("请输入日期,格式为:yyyyMMdd")
+    		return;
+    	}
+    	$.ajax({
+			type:"GET",
+			url:"addAuth/"+dateStr,
+			success:function(data){
+				if (data.code=="1") {
+					alert("ok")
+				} else {
+					alert("error")
+				}
+			}
+		});
+    }
+    function downloadLog() {
+    	$.ajax({
+			type:"GET",
+			url:"downloadLog",
+			success:function(data){
+				if (data.code=="1") {
+					alert("ok")
+				} else {
+					alert("error")
+				}
+			}
+		});
+    }
+    </script>
+</body>
+</html>
